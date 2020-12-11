@@ -1,0 +1,13 @@
+<div class="wrapper">
+<h3>Demo For</h3>
+<h4>Saple sub titile</h4>
+
+<div class="errorWrapper" *ngIf="error"> invalid user name </div>
+    <div class="formWrapper">
+            <input name="username" [(ngModel)]="username" type="text" />
+            <input name="password" [(ngModel)]="password" type="password" />
+            <button (click)="login()" class="loginBtn">Login</button>
+    </div>
+</div>
+
+
