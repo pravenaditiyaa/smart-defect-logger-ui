@@ -110,7 +110,6 @@ beforeEach(() => {
     //errors = [];
 });
 afterEach(() => {
-    cy.log(errors ,true)
    // errors = [];
     isSoftAssertion = false;
 });
@@ -118,7 +117,8 @@ afterEach(() => {
 // runs once after all tests in the block
 // dev ops ,repor step here
 after(() => {
-    console.log(errors)
-    const reproSteps = new ReproduceSteps(errors , cy);
-    cy.request("POST", "http://localhost:8989/createBug", {title:"test Cypress", description:"description cypress"});
+     const reproSteps = new ReproduceSteps(errors , cy);
+     errors.forEach((obj,i) => {
+        cy.request("POST", "http://localhost:8989/createBug", {title:"Bug from Cypress", description: reproSteps.defectList[0].description});
+    }) 
   })

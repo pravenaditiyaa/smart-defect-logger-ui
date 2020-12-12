@@ -1,0 +1,40 @@
+<div class="navWrapper">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <li id="navEventDetails" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/">
+                        <h3>Event Details</h3>
+                    </a>
+                </li>
+                <li id="navTeams" class="nav-item">
+                    <a class="nav-link" href="#">
+                        <h3>Teams</h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" id="navRegister">
+                    <a class="nav-link" href="#" routerLink="/employeedetails">
+                        <h3>Register</h3>
+                    </a>
+                </li>
+                <li class="nav-item" id="navLogin">
+                    <a class="nav-link" href="#" routerLink="/login">
+                        <h3>Login</h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br />
+    <div class="container-fluid" id="image">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3 bgGrey border border-light rounded">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

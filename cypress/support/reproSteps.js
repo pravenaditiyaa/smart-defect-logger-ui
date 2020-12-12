@@ -38,7 +38,6 @@ export default  class ReproduceSteps {
                         reproSteps.push('Recevied path' +  url)
                         const defectLog = {description: reproSteps.join("<br/>")}
                         this.defectList.push(defectLog);
-                        console.log(this.defectList)
                     })
                    
                 }

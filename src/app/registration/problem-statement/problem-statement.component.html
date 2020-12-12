@@ -1,0 +1,63 @@
+<div class="container-fluid border rounder">
+    <form [formGroup]="problemStatementForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="serviceLine">Service Line</label>
+            <select id="serviceLine" class="custom-select" (change)="setServiceLine($event)" formControlName="serviceLine"
+                [ngClass]="{ 'is-invalid': submitted && f.serviceLine.errors }">
+                <option value="" disabled>Choose your Service Line</option>
+                <option *ngFor="let svcLn of serviceLines" [ngValue]="svcLn">{{svcLn}}</option>
+            </select>
+            <div *ngIf="submitted && f.serviceLine.errors" class="invalid-feedback">
+                <div id="serviceLineError" *ngIf="f.serviceLine.errors.required">Required Field</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="theme">Theme</label>
+            <br />
+            <label>
+                <input id="theme" type="radio" value="PI" formControlName="theme">
+                <span>Productivity Improvement</span>
+            </label>
+            <label>
+                <input id="theme" type="radio" value="AT" formControlName="theme">
+                <span>Automation</span>
+            </label>
+            <label>
+                <input id="theme" type="radio" value="UI" formControlName="theme">
+                <span>UI Improvement</span>
+            </label>
+            <label>
+                <input id="theme" type="radio" value="NA" formControlName="theme">
+                <span>Others</span>
+            </label>
+            <div *ngIf="submitted && f.theme.errors" class="invalid-feedback">
+                <div id="themeError" *ngIf="f.theme.errors.required">Required Field</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="problemDescription">Problem Statement</label>
+            <textarea id="problemDescription" formControlName="problemDescription" class="form-control" rows="3" cols="60"
+                [ngClass]="{ 'is-invalid': submitted && f.problemDescription.errors }">
+            </textarea>
+            <div *ngIf="submitted && f.problemDescription.errors" class="invalid-feedback">
+                <div id="problemDescriptionError" *ngIf="f.problemDescription.errors.required">Required Field</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="businessBenefits">IT / Business Benefits</label>
+            <textarea id="businessBenefits" formControlName="businessBenefits" class="form-control" rows="2" cols="60"
+                [ngClass]="{ 'is-invalid': submitted && f.businessBenefits.errors }">
+            </textarea>
+            <div *ngIf="submitted && f.businessBenefits.errors" class="invalid-feedback">
+                <div id="businessBenefitsError" *ngIf="f.businessBenefits.errors.required">Required Field</div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-between">
+            <button class="btn" [routerLink]="['#']">Cancel</button>
+            <button class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>

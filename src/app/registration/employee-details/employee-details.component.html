@@ -1,0 +1,39 @@
+<div class="empWrapper">
+    <div class="container-fluid border">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="firstName">Name</label>
+            <input id="name" type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div id="firstNameError" *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="teamName">Team Name</label>
+            <input id="teamName" type="text" formControlName="teamName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.teamName.errors }" />
+            <div id="teamNameError" *ngIf="submitted && f.teamName.errors" class="invalid-feedback">
+                <div *ngIf="f.teamName.errors.required">Team Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="teamLoginId">Team Login ID</label>
+            <input id="teamLoginId" type="text" formControlName="teamLoginId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.teamLoginId.errors }" />
+            <div id="teamLoginIdError" *ngIf="submitted && f.teamLoginId.errors" class="invalid-feedback">
+                <div *ngIf="f.teamLoginId.errors.required">Username is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div id="passwordError" *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-between">
+            <button  class="btn" [routerLink]="['#']">Cancel</button>
+            <button id="btnNext" class="btn">Next</button>
+        </div>
+    </form>
+</div>
+</div>

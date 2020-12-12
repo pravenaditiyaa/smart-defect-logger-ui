@@ -1,11 +1,23 @@
 <div class="wrapper">
-<h3>Demo For</h3>
+<h3>Demo Form</h3>
 <h4>Saple sub titile</h4>
 
 <div class="errorWrapper" *ngIf="error"> invalid user name </div>
     <div class="formWrapper">
-            <input name="username" [(ngModel)]="username" type="text" />
-            <input name="password" [(ngModel)]="password" type="password" />
+            <input id="username" name="username" [(ngModel)]="username" type="text" />
+            <input id="password" name="password" [(ngModel)]="password" type="password" />
+            <input id="checkbox1" type="checkbox" value=1>
+            <input type="radio" id="pwc" name="pwc" value="1">
+            <label for="pwc">pwc</label><br>
+            <input type="radio" id="nonPwc" name="nonPwc" value="2">
+            <label for="nonPwc">non pwc</label><br>  
+            <input type="submit" value="Submit">
+            <select name="user" id="user">
+                <option value="1">pooja</option>
+                <option value="2">glen</option>
+                <option value="3">praven</option>
+                <option value="4">vig</option>
+              </select>
             <button (click)="login()" class="loginBtn">Login</button>
     </div>
 </div>
