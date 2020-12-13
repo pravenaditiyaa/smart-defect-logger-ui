@@ -17,28 +17,37 @@ export default  class ReproduceSteps {
                 const defect = this._errors[key];
                 const step = JSON.parse(defect.message.split(': e')[0]);
                 
-                reproSteps.push('1) As an user navigate To ' + this._errors.url);
+                reproSteps.push('1) As an user navigate To ' +'http://localhost:4200/employeedetails');
                 //static fields // text fields
                 if(step.type === 'staticText'){
                     reproSteps.push('2) Expecting text '+ defect.expected);
                     reproSteps.push('3) Actual Text ' + defect.actual);
-                    const defectLog = {description: reproSteps.join("<br/>")}
+                    const defectLog = {description: reproSteps.join("\n")}
                     this.defectList.push(defectLog);
                 } else if(step.type === 'form'){
                     const testcases = step.condtion.toTest;
                     Object.keys(testcases).forEach((v ,i)=>{
-                        reproSteps.push(`${i+2} Enter  - ${testcases[v].selector} - ${testcases[v].input}`);
+                        switch (testcases[v].type){
+                            case 'input':
+                            reproSteps.push(`${i+2} Enter ${testcases[v].name} as ${testcases[v].input}`);
+                            break;
+                            case 'button':
+                            reproSteps.push(`${i+2} Click ${testcases[v].name}`);
+                            break;
+                        }
+                        
                     });
 
-                    reproSteps.push(step.condtion.onSubmit.path);
+                    reproSteps.push("Expected path: http://localhost:4200/"+step.condtion.onSubmit.path);
 
 
                     this.cypress.url().then(url => {
 
                         reproSteps.push('Recevied path' +  url)
-                        const defectLog = {description: reproSteps.join("<br/>")}
+                        const defectLog = {description: reproSteps.join(",  ")}
                         this.defectList.push(defectLog);
                     })
+                    
                    
                 }
               

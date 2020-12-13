@@ -1,11 +1,16 @@
-<div class="container-fluid border rounder">
+<div class="pblmWrapper">
+    <div class="container-fluid border rounder">
     <form [formGroup]="problemStatementForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="serviceLine">Service Line</label>
             <select id="serviceLine" class="custom-select" (change)="setServiceLine($event)" formControlName="serviceLine"
                 [ngClass]="{ 'is-invalid': submitted && f.serviceLine.errors }">
-                <option value="" disabled>Choose your Service Line</option>
-                <option *ngFor="let svcLn of serviceLines" [ngValue]="svcLn">{{svcLn}}</option>
+                <option value="1" >ADM</option>
+                <option value="2" >INS</option>
+                <option value="3" >SAP</option>
+                <option value="4" >DX</option>
+                
+                <!-- <option *ngFor="let svcLn of serviceLines" [ngValue]="svcLn.value">{{svcLn.name}}</option> -->
             </select>
             <div *ngIf="submitted && f.serviceLine.errors" class="invalid-feedback">
                 <div id="serviceLineError" *ngIf="f.serviceLine.errors.required">Required Field</div>
@@ -15,15 +20,15 @@
             <label for="theme">Theme</label>
             <br />
             <label>
-                <input id="theme" type="radio" value="PI" formControlName="theme">
+                <input class="radioC" id="theme" type="radio" value="1" formControlName="theme">
                 <span>Productivity Improvement</span>
             </label>
             <label>
-                <input id="theme" type="radio" value="AT" formControlName="theme">
+                <input class="radioC" id="theme" type="radio" value="2" formControlName="theme">
                 <span>Automation</span>
             </label>
             <label>
-                <input id="theme" type="radio" value="UI" formControlName="theme">
+                <input class="radioC" id="theme" type="radio" value="3" formControlName="theme">
                 <span>UI Improvement</span>
             </label>
             <label>
@@ -54,10 +59,11 @@
         </div>
         <div class="form-group d-flex justify-content-between">
             <button class="btn" [routerLink]="['#']">Cancel</button>
-            <button class="btn btn-primary">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            <button id="btnSubmit" class="btn btn-primary">
+                <span   *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Submit
             </button>
         </div>
     </form>
+</div>
 </div>

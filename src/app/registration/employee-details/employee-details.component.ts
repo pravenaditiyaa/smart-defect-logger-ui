@@ -31,7 +31,7 @@ export class EmployeeDetailsComponent implements OnInit {
         if (this.registerForm.invalid) {
             return;
         } else {
-            this.router.navigateByUrl('/problemstatement');
+            this.router.navigateByUrl('/problemstatement2');
         }
     }
 }

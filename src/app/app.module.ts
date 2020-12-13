@@ -10,6 +10,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './login/login/login.component';
 import { EmployeeDetailsComponent } from './registration/employee-details/employee-details.component';
 import { ProblemStatementComponent } from './registration/problem-statement/problem-statement.component';
+import { WelcomePageComponent } from './registration/welcome-page/welcome-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ProblemStatementComponent } from './registration/problem-statement/prob
     NavigationComponent,
     LoginComponent,
     EmployeeDetailsComponent,
-    ProblemStatementComponent
+    ProblemStatementComponent,
+    WelcomePageComponent
   ],
   imports: [
     BrowserModule,

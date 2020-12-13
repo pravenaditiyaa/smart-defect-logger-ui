@@ -112,13 +112,59 @@ beforeEach(() => {
 afterEach(() => {
    // errors = [];
     isSoftAssertion = false;
+    if(errors.length > 0)
+    generateDefectReproSteps(errors , cy)
+    .then(data=>{
+        cy.request("POST", "http://localhost:8989/createBug", {title:"Bug from Cypress", description: data.description ? data.description : ""});    
+    })   
+    
 });
 
 // runs once after all tests in the block
 // dev ops ,repor step here
 after(() => {
-     const reproSteps = new ReproduceSteps(errors , cy);
-     errors.forEach((obj,i) => {
-        cy.request("POST", "http://localhost:8989/createBug", {title:"Bug from Cypress", description: reproSteps.defectList[0].description});
-    }) 
+    
   })
+
+  const generateDefectReproSteps = async (_errors, cypress) => {
+    let defectLog = {}
+    Object.keys(_errors).forEach((key)=> {
+        if(typeof _errors[key] === 'object'){
+            const reproSteps = [];
+            const defect = _errors[key];
+            const step = JSON.parse(defect.message.split(': e')[0]);
+            
+            reproSteps.push('1) As an user navigate To ' +'http://localhost:4200/employeedetails');
+            //static fields // text fields
+            if(step.type === 'staticText'){
+                reproSteps.push('2) Expecting text '+ defect.expected);
+                reproSteps.push('3) Actual Text ' + defect.actual);
+                defectLog = {description: reproSteps.join("\n")}
+            } else if(step.type === 'form'){
+                const testcases = step.condtion.toTest;
+                Object.keys(testcases).forEach((v ,i)=>{
+                    switch (testcases[v].type){
+                        case 'input':
+                        reproSteps.push(`${i+2} Enter ${testcases[v].name} as ${testcases[v].input}`);
+                        break;
+                        case 'button':
+                        reproSteps.push(`${i+2} Click ${testcases[v].name}`);
+                        break;
+                    }
+                    
+                });
+
+                reproSteps.push("Expected path: http://localhost:4200/"+step.condtion.onSubmit.path);
+
+                defectLog = {description: reproSteps.join(",  ")}
+                 cypress.url().then(url => {
+
+                    reproSteps.push('Recevied path' +  url)
+                    defectLog = {description: reproSteps.join(",  ")}
+                })
+                
+            }
+        }
+    })
+ return defectLog;
+}

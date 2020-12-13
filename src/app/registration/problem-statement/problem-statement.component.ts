@@ -41,7 +41,7 @@ export class ProblemStatementComponent implements OnInit {
     if (this.problemStatementForm.invalid) {
       return;
     } else {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/welcomepage');
     }
   }
 }
