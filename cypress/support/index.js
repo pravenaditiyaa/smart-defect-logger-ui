@@ -14,6 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import { TimeoutError } from 'rxjs';
 import './commands'
 import ReproduceSteps from './reproSteps';
 
@@ -26,15 +27,15 @@ let isSoftAssertion = false;
 let errors = [];
 let AllErrors = [];
 
-
 chai.softExpect = function ( ...args ) {
     isSoftAssertion = true;
     return chai.expect(...args);
-},
-chai.softAssert = function ( ...args ) {
-    isSoftAssertion = true;
-    return chai.assert(...args);
 }
+// chai.softAssert = function ( ...args ) {
+//     isSoftAssertion = true;
+//     _cy = args.cy;
+//     return chai.assert(...args);
+// }
 
 const origAssert = chai.Assertion.prototype.assert;
 chai.Assertion.prototype.assert = function (...args) {
@@ -42,9 +43,16 @@ chai.Assertion.prototype.assert = function (...args) {
         try {
             origAssert.call(this, ...args)
         } catch ( error ) {
+            cy.wait(100)
+            cy.screenshot('my-screenshot', {
+                onAfterScreenshot ($el, props) {
+                    alert('captured screenshot');
+                }
+            })
+           
             errors.push(error);
             //fails to assertions block
-            throw new Error(msg);
+           // throw new Error(error);
         }
         isSoftAssertion = false;
     } else {
@@ -115,7 +123,7 @@ afterEach(() => {
     if(errors.length > 0)
     generateDefectReproSteps(errors , cy)
     .then(data=>{
-        cy.request("POST", "http://localhost:8989/createBug", {title:"Bug from Cypress", description: data.description ? data.description : ""});    
+     cy.request("POST", "http://localhost:8989/createBug", {title:"Bug from Cypress", description: data.description ? data.description : ""});    
     })   
     
 });

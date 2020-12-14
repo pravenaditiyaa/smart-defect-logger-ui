@@ -9,7 +9,7 @@ context('registrationForm', () => {
             toTest:[
             {
                 id: '#navEventDetails',
-                output:'Event Details',
+                output:'Event Detail',
                 message:'Event Details route element not found'
             },  
             {
@@ -127,12 +127,13 @@ context('registrationForm', () => {
                                 testcase.toTest.forEach( condtion =>{  //loops though condtions
                                    cy.get(condtion.id).each($elem =>{
                                         condtion.type = testcase.type;
-                                        cy.get(condtion.id).invoke('text').should(someValue => {
-                                        if(someValue!==condtion.output){
+                                       // cy.get(condtion.id).invoke('text').should(someValue => {
+                                       // if(someValue!==condtion.output){
+                                       
                                         softExpect($elem[0].textContent , JSON.stringify({type:testcase.type ,condtion, screenshot:condtion.message+i+'.png'}) , condtion.testdescription, 'scrrenshot').to.eq(condtion.output);                                      
-                                        }
-                                        //cy.screenshot(condtion.message+i+'.png');
-                                    });
+                                      //  }
+                                        
+                                   // });
                                     
                                     })  ; 
                             });
